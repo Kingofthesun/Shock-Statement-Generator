@@ -15,6 +15,7 @@ import models.User;
 
 public class PDFGenerator {
 
+	private static List<User> users;
 	private static User currentUser;
 	private static Date statementDate = new Date();
 	private static OutputStream outputStream;
@@ -22,7 +23,9 @@ public class PDFGenerator {
 	
 	public static void run() throws IOException {
 		
-		outputStream = new FileOutputStream("testfile.html");
+		users = ReadJson.read();
+		
+		outputStream = new FileOutputStream("StockStatements.html");
         outputStreamWriter = new OutputStreamWriter(outputStream);
         
         
@@ -30,7 +33,12 @@ public class PDFGenerator {
         outputStreamWriter.write("<!DOCTYPE html>");
         outputStreamWriter.write("<html><body>");
 		
-		printUser();
+        for (int i = 0; i < users.size(); i++) {
+			currentUser = users.get(i);
+			printUser();
+			outputStreamWriter.write("<br><br>");
+		}
+        
         
         
         
@@ -51,20 +59,20 @@ public class PDFGenerator {
 //	        person.setCourses(courses);
 		
 		
-			List<Transaction> currentUserTransactions = new ArrayList<Transaction>();
-			currentUserTransactions.add(new Transaction(true, "ASDF", (float) 302.14, 3920));
-			currentUserTransactions.add(new Transaction(false, "WQRE", (float) 603.3, 4290));
-			
-			
-			currentUser = new User();
-			
-			currentUser.setFullName("Matthew Carey");
-			currentUser.setSsn("123-45-6789"); 
-			currentUser.setEmail("Matthewcarey9000@gmail.com");
-			currentUser.setPhoneNumber("360-910-9680");
-			currentUser.setBalance((float) 6942025.23); 
-			currentUser.setAccountNumber(1);
-			currentUser.setTransactions(currentUserTransactions);
+//			List<Transaction> currentUserTransactions = new ArrayList<Transaction>();
+//			currentUserTransactions.add(new Transaction(true, "ASDF", (double) 302.14, 3920));
+//			currentUserTransactions.add(new Transaction(false, "WQRE", (double) 603.3, 4290));
+//			
+//			
+//			currentUser = new User();
+//			
+//			currentUser.setFullName("Matthew Carey");
+//			currentUser.setSsn("123-45-6789"); 
+//			currentUser.setEmail("Matthewcarey9000@gmail.com");
+//			currentUser.setPhoneNumber("360-910-9680");
+//			currentUser.setBalance((double) 6942025.23); 
+//			currentUser.setAccountNumber(1);
+//			currentUser.setTransactions(currentUserTransactions);
 		
 		
 
@@ -89,11 +97,6 @@ public class PDFGenerator {
 
 	        
 
-	}
-	
-	private static int calcUserBalance() {
-		
-		return 0;
 	}
 	
 	public static void printTransactions(List<Transaction> transactions) throws IOException {

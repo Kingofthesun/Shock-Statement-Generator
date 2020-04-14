@@ -8,12 +8,12 @@ public class User {
 	private String ssn;
 	private String email;
 	private String phoneNumber;
-	private float balance;
-	private int accountNumber;
-	private int stockHoldings;
+	private double balance;
+	private long accountNumber;
+	private long stockHoldings;
 	private List<Transaction> transactions;
 	
-	public User(String fullName, String ssn, String email, String phoneNumber, float balance, int accountNumber,
+	public User(String fullName, String ssn, String email, String phoneNumber, double balance, long accountNumber,
 			List<Transaction> transactions) {
 		this.fullName = fullName;
 		this.ssn = ssn;
@@ -25,15 +25,18 @@ public class User {
 		setStockHoldings(stockSum());
 	}
 
-	private int stockSum() {
-		int sum = 0;
+	private long stockSum() {
+		long sum = 0;
 		for(Transaction T : transactions) {
-			sum += T.getCountShares();
+			if(T.isBuy()) {
+				sum += T.getCountShares();				
+			}
 		}
 		return sum;
 	}
 
 	public User() {
+		stockHoldings = 0;
 	}
 
 	public String getFullName() {
@@ -68,19 +71,19 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public float getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
-	public int getAccountNumber() {
+	public long getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
@@ -93,11 +96,11 @@ public class User {
 		setStockHoldings(stockSum());
 	}
 
-	public int getStockHoldings() {
+	public long getStockHoldings() {
 		return stockHoldings;
 	}
 
-	public void setStockHoldings(int stockHoldings) {
+	public void setStockHoldings(long stockHoldings) {
 		this.stockHoldings = stockHoldings;
 	}
 	

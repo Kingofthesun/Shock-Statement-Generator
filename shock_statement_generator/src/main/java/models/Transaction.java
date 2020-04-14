@@ -4,11 +4,11 @@ public class Transaction {
 
 	private boolean buy;
 	private String stockSymbol;
-	private float pricePerShare;
-	private int countShares;
-	private float totalTransactionAmount;
+	private double pricePerShare;
+	private long countShares;
+	private double totalTransactionAmount;
 	
-	public Transaction(boolean buy, String stockSymbol, float pricePerShare, int countShares) {
+	public Transaction(boolean buy, String stockSymbol, double pricePerShare, long countShares) {
 		this.buy = buy;
 		this.stockSymbol = stockSymbol;
 		this.pricePerShare = pricePerShare;
@@ -16,8 +16,13 @@ public class Transaction {
 		totalTransactionAmount = TransactionCalculator();
 	}
 	
-	private float TransactionCalculator() {	
-		float sum = pricePerShare * countShares;
+	public Transaction() {
+		
+	}
+	
+	private double TransactionCalculator() {	
+		double sum = 0;
+		sum = pricePerShare * countShares;
 		if(buy) {
 			sum *= -1;
 		}
@@ -40,27 +45,29 @@ public class Transaction {
 		this.stockSymbol = stockSymbol;
 	}
 
-	public float getPricePerShare() {
+	public double getPricePerShare() {
 		return pricePerShare;
 	}
 
-	public void setPricePerShare(float pricePerShare) {
+	public void setPricePerShare(double pricePerShare) {
 		this.pricePerShare = pricePerShare;
+		totalTransactionAmount = TransactionCalculator();
 	}
 
-	public int getCountShares() {
+	public long getCountShares() {
 		return countShares;
 	}
 
-	public void setCountShares(int countShares) {
+	public void setCountShares(long countShares) {
 		this.countShares = countShares;
+		totalTransactionAmount = TransactionCalculator();
 	}
 
-	public float getTotalTransactionAmount() {
+	public double getTotalTransactionAmount() {
 		return totalTransactionAmount;
 	}
 
-	public void setTotalTransactionAmount(float totalTransactionAmount) {
+	public void setTotalTransactionAmount(double totalTransactionAmount) {
 		this.totalTransactionAmount = totalTransactionAmount;
 	}
 	
